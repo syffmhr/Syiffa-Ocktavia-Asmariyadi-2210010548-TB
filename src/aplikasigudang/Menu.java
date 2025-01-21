@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author ASUS
+ * @author syffmhr
  */
 public class Menu extends javax.swing.JFrame {
 
@@ -28,9 +28,12 @@ public class Menu extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -49,7 +52,24 @@ public class Menu extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Aplikasi Gudang");
-        jPanel1.add(jLabel1, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+        jLabel2.setText("Syiffa Ocktavia Asmariyadi");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        jPanel1.add(jLabel2, gridBagConstraints);
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 2, 18)); // NOI18N
+        jLabel3.setText("2210010548");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(6, 6, 23, 6);
+        jPanel1.add(jLabel3, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -187,6 +207,8 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

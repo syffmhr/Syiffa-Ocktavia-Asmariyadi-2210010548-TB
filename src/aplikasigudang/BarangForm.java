@@ -454,7 +454,6 @@ public class BarangForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNamaActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        new Menu().setVisible(true); // Asumsi kelas MenuUtama sudah ada
         this.dispose(); // Menutup form saat ini
     }//GEN-LAST:event_jButton6ActionPerformed
 

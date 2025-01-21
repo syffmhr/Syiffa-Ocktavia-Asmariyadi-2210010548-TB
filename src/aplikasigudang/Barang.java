@@ -7,7 +7,7 @@ package aplikasigudang;
 
 /**
  *
- * @author ASUS
+ * @author syffmhr
  */
 public class Barang {
     private int idBarang;        // ID Barang
