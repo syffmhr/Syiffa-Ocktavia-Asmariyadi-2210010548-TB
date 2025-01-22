@@ -10,19 +10,19 @@ package aplikasigudang;
  * @author syffmhr
  */
 public class Barang {
-    private int idBarang;        // ID Barang
-    private String namaBarang;   // Nama Barang
-    private String kategori;     // Kategori Barang
-    private int stok;            // Stok Barang
-    private double harga;        // Harga Barang
+    private String kodeBarang;    // Kode Barang (unik)
+    private String namaBarang;    // Nama Barang
+    private String kategori;      // Kategori Barang
+    private int stok;             // Stok Barang
+    private double harga;         // Harga Barang
 
     // Constructor tanpa parameter (default)
     public Barang() {
     }
 
     // Constructor dengan parameter
-    public Barang(int idBarang, String namaBarang, String kategori, int stok, double harga) {
-        this.idBarang = idBarang;
+    public Barang(String kodeBarang, String namaBarang, String kategori, int stok, double harga) {
+        this.kodeBarang = kodeBarang;
         this.namaBarang = namaBarang;
         this.kategori = kategori;
         this.stok = stok;
@@ -30,12 +30,12 @@ public class Barang {
     }
 
     // Getter dan Setter
-    public int getIdBarang() {
-        return idBarang;
+    public String getKodeBarang() {
+        return kodeBarang;
     }
 
-    public void setIdBarang(int idBarang) {
-        this.idBarang = idBarang;
+    public void setKodeBarang(String kodeBarang) {
+        this.kodeBarang = kodeBarang;
     }
 
     public String getNamaBarang() {
@@ -74,7 +74,7 @@ public class Barang {
     @Override
     public String toString() {
         return "Barang{" +
-                "idBarang=" + idBarang +
+                "kodeBarang='" + kodeBarang + '\'' +
                 ", namaBarang='" + namaBarang + '\'' +
                 ", kategori='" + kategori + '\'' +
                 ", stok=" + stok +

@@ -49,6 +49,8 @@ public class BarangForm extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtKode = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBarang = new javax.swing.JTable();
@@ -67,6 +69,7 @@ public class BarangForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Nama Barang :");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel1, gridBagConstraints);
@@ -75,7 +78,7 @@ public class BarangForm extends javax.swing.JFrame {
         jLabel2.setText("Kategori :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel2, gridBagConstraints);
@@ -84,7 +87,7 @@ public class BarangForm extends javax.swing.JFrame {
         jLabel3.setText("Stok :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel3, gridBagConstraints);
@@ -93,7 +96,7 @@ public class BarangForm extends javax.swing.JFrame {
         jLabel4.setText("Harga :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel4, gridBagConstraints);
@@ -105,6 +108,7 @@ public class BarangForm extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -115,7 +119,7 @@ public class BarangForm extends javax.swing.JFrame {
         txtKategori.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -126,7 +130,7 @@ public class BarangForm extends javax.swing.JFrame {
         txtStok.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -137,7 +141,7 @@ public class BarangForm extends javax.swing.JFrame {
         txtHarga.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -185,10 +189,31 @@ public class BarangForm extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(23, 0, 23, 0);
         jPanel2.add(jPanel5, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Kode Barang :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(jLabel5, gridBagConstraints);
+
+        txtKode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtKode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKodeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 72;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(txtKode, gridBagConstraints);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Barang", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -201,7 +226,7 @@ public class BarangForm extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "NO", "Nama Barang", "Kategori", "Stok", "Harga"
+                "Kode Barang", "Nama Barang", "Kategori", "Stok", "Harga"
             }
         ));
         jScrollPane1.setViewportView(tblBarang);
@@ -264,7 +289,7 @@ public class BarangForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6)
@@ -300,7 +325,7 @@ public class BarangForm extends javax.swing.JFrame {
         List<Barang> barangList = getBarangFromDatabase();
         for (Barang barang : barangList) {
             model.addRow(new Object[]{
-                barang.getIdBarang(),
+                barang.getKodeBarang(), // Menggunakan kode_barang
                 barang.getNamaBarang(),
                 barang.getKategori(),
                 barang.getStok(),
@@ -319,11 +344,11 @@ public class BarangForm extends javax.swing.JFrame {
 
             while (rs.next()) {
                 Barang barang = new Barang(
-                        rs.getInt("id_barang"),
-                        rs.getString("nama_barang"),
-                        rs.getString("kategori_barang"),
-                        rs.getInt("stok"),
-                        rs.getDouble("harga")
+                    rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getString("kategori_barang"),
+                    rs.getInt("stok"),
+                    rs.getDouble("harga")
                 );
                 barangList.add(barang);
             }
@@ -338,12 +363,13 @@ public class BarangForm extends javax.swing.JFrame {
     private void tambahBarang() {
         if (isInputValid()) {
             try {
-                String query = "INSERT INTO barang (nama_barang, kategori_barang, stok, harga) VALUES (?, ?, ?, ?)";
+                String query = "INSERT INTO barang (kode_barang, nama_barang, kategori_barang, stok, harga) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, txtNama.getText());
-                ps.setString(2, txtKategori.getText());
-                ps.setInt(3, Integer.parseInt(txtStok.getText()));
-                ps.setDouble(4, Double.parseDouble(txtHarga.getText()));
+                ps.setString(1, txtKode.getText()); // Input kode_barang
+                ps.setString(2, txtNama.getText());
+                ps.setString(3, txtKategori.getText());
+                ps.setInt(4, Integer.parseInt(txtStok.getText()));
+                ps.setDouble(5, Double.parseDouble(txtHarga.getText()));
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Barang berhasil ditambahkan");
                 loadTable();
@@ -354,15 +380,38 @@ public class BarangForm extends javax.swing.JFrame {
         }
     }
 
+    // Update barang di database
+    private void updateBarang() {
+        int selectedRow = tblBarang.getSelectedRow();
+        if (selectedRow != -1 && isInputValid()) {
+            String kodeBarang = model.getValueAt(selectedRow, 0).toString(); // Ambil kode_barang
+            try {
+                String query = "UPDATE barang SET nama_barang = ?, kategori_barang = ?, stok = ?, harga = ? WHERE kode_barang = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, txtNama.getText());
+                ps.setString(2, txtKategori.getText());
+                ps.setInt(3, Integer.parseInt(txtStok.getText()));
+                ps.setDouble(4, Double.parseDouble(txtHarga.getText()));
+                ps.setString(5, kodeBarang);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Barang berhasil diperbarui");
+                loadTable();
+                clearForm();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal memperbarui barang: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     // Hapus barang dari database
     private void hapusBarang() {
         int selectedRow = tblBarang.getSelectedRow();
         if (selectedRow != -1) {
-            int idBarang = (int) model.getValueAt(selectedRow, 0);
+            String kodeBarang = model.getValueAt(selectedRow, 0).toString(); // Ambil kode_barang
             try {
-                String query = "DELETE FROM barang WHERE id_barang = ?";
+                String query = "DELETE FROM barang WHERE kode_barang = ?";
                 PreparedStatement ps = conn.prepareStatement(query);
-                ps.setInt(1, idBarang);
+                ps.setString(1, kodeBarang);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Barang berhasil dihapus");
                 loadTable();
@@ -375,30 +424,7 @@ public class BarangForm extends javax.swing.JFrame {
         }
     }
 
-    // Update barang di database
-    private void updateBarang() {
-        int selectedRow = tblBarang.getSelectedRow();
-        if (selectedRow != -1 && isInputValid()) {
-            int idBarang = (int) model.getValueAt(selectedRow, 0);
-            try {
-                String query = "UPDATE barang SET nama_barang = ?, kategori_barang = ?, stok = ?, harga = ? WHERE id_barang = ?";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, txtNama.getText());
-                ps.setString(2, txtKategori.getText());
-                ps.setInt(3, Integer.parseInt(txtStok.getText()));
-                ps.setDouble(4, Double.parseDouble(txtHarga.getText()));
-                ps.setInt(5, idBarang);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Barang berhasil diperbarui");
-                loadTable();
-                clearForm();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Gagal memperbarui barang: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-    
-    //Mencari barang berdasarkan nama.
+    // Cari barang berdasarkan nama
     private void cariBarang() {
         String keyword = txtCari.getText();
         if (keyword.isEmpty()) {
@@ -415,7 +441,7 @@ public class BarangForm extends javax.swing.JFrame {
 
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getInt("id_barang"),
+                    rs.getString("kode_barang"), // Menggunakan kode_barang
                     rs.getString("nama_barang"),
                     rs.getString("kategori_barang"),
                     rs.getInt("stok"),
@@ -427,7 +453,9 @@ public class BarangForm extends javax.swing.JFrame {
         }
     }
 
+    // Populate form with selected row data
     private void populateFormWithSelectedRow(int rowIndex) {
+        txtKode.setText(model.getValueAt(rowIndex, 0).toString()); // kode_barang
         txtNama.setText(model.getValueAt(rowIndex, 1).toString());
         txtKategori.setText(model.getValueAt(rowIndex, 2).toString());
         txtStok.setText(model.getValueAt(rowIndex, 3).toString());
@@ -435,6 +463,7 @@ public class BarangForm extends javax.swing.JFrame {
     }
 
     private void clearForm() {
+        txtKode.setText("");
         txtNama.setText("");
         txtKategori.setText("");
         txtStok.setText("");
@@ -442,7 +471,7 @@ public class BarangForm extends javax.swing.JFrame {
     }
 
     private boolean isInputValid() {
-        if (txtNama.getText().isEmpty() || txtKategori.getText().isEmpty() || txtStok.getText().isEmpty() || txtHarga.getText().isEmpty()) {
+        if (txtKode.getText().isEmpty() ||txtNama.getText().isEmpty() || txtKategori.getText().isEmpty() || txtStok.getText().isEmpty() || txtHarga.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -456,6 +485,10 @@ public class BarangForm extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.dispose(); // Menutup form saat ini
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtKodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKodeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,6 +536,7 @@ public class BarangForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -513,6 +547,7 @@ public class BarangForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtKategori;
+    private javax.swing.JTextField txtKode;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtStok;
     // End of variables declaration//GEN-END:variables

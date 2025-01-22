@@ -10,26 +10,30 @@ package aplikasigudang;
  * @author syffmhr
  */
 public class Supplier {
-    private int idSupplier;
+    private String kodeSupplier;  // Menggunakan kodeSupplier sebagai identifier utama
     private String namaSupplier;
     private String alamat;
     private String telepon;
 
-    // Constructor
-    public Supplier(int idSupplier, String namaSupplier, String alamat, String telepon) {
-        this.idSupplier = idSupplier;
+    // Constructor tanpa parameter (default)
+    public Supplier() {
+    }
+
+    // Constructor dengan parameter
+    public Supplier(String kodeSupplier, String namaSupplier, String alamat, String telepon) {
+        this.kodeSupplier = kodeSupplier;
         this.namaSupplier = namaSupplier;
         this.alamat = alamat;
         this.telepon = telepon;
     }
 
     // Getters and Setters
-    public int getIdSupplier() {
-        return idSupplier;
+    public String getKodeSupplier() {
+        return kodeSupplier;
     }
 
-    public void setIdSupplier(int idSupplier) {
-        this.idSupplier = idSupplier;
+    public void setKodeSupplier(String kodeSupplier) {
+        this.kodeSupplier = kodeSupplier;
     }
 
     public String getNamaSupplier() {
@@ -55,5 +59,15 @@ public class Supplier {
     public void setTelepon(String telepon) {
         this.telepon = telepon;
     }
-}
 
+    // Metode untuk mencetak informasi supplier
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "kodeSupplier='" + kodeSupplier + '\'' +
+                ", namaSupplier='" + namaSupplier + '\'' +
+                ", alamat='" + alamat + '\'' +
+                ", telepon='" + telepon + '\'' +
+                '}';
+    }
+}

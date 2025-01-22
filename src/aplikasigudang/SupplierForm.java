@@ -53,6 +53,8 @@ public class SupplierForm extends javax.swing.JFrame {
         btnUbah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
+        txtKode = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSupplier = new javax.swing.JTable();
@@ -71,6 +73,7 @@ public class SupplierForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Nama :");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel1, gridBagConstraints);
@@ -79,7 +82,7 @@ public class SupplierForm extends javax.swing.JFrame {
         jLabel2.setText("Alamat :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel2, gridBagConstraints);
@@ -88,7 +91,7 @@ public class SupplierForm extends javax.swing.JFrame {
         jLabel3.setText("Telepon :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel3, gridBagConstraints);
@@ -100,6 +103,7 @@ public class SupplierForm extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -110,7 +114,7 @@ public class SupplierForm extends javax.swing.JFrame {
         txtAlamat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -121,7 +125,7 @@ public class SupplierForm extends javax.swing.JFrame {
         txtTelepon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
@@ -169,10 +173,35 @@ public class SupplierForm extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(23, 0, 23, 0);
         jPanel2.add(jPanel5, gridBagConstraints);
+
+        txtKode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtKode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKodeActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 72;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(txtKode, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Kode Supplier :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(jLabel4, gridBagConstraints);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Supplier", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -291,7 +320,6 @@ public class SupplierForm extends javax.swing.JFrame {
         });
     }
 
-    // Load data supplier dari database ke tabel
     private void loadTable() {
         model = (DefaultTableModel) tblSupplier.getModel();
         model.setRowCount(0); // Reset tabel
@@ -299,7 +327,7 @@ public class SupplierForm extends javax.swing.JFrame {
         List<Supplier> supplierList = getSuppliersFromDatabase();
         for (Supplier supplier : supplierList) {
             model.addRow(new Object[]{
-                supplier.getIdSupplier(),
+                supplier.getKodeSupplier(), // Menggunakan kode_supplier
                 supplier.getNamaSupplier(),
                 supplier.getAlamat(),
                 supplier.getTelepon()
@@ -307,7 +335,6 @@ public class SupplierForm extends javax.swing.JFrame {
         }
     }
 
-    // Ambil data supplier dari database
     private List<Supplier> getSuppliersFromDatabase() {
         List<Supplier> supplierList = new ArrayList<>();
         try {
@@ -317,7 +344,7 @@ public class SupplierForm extends javax.swing.JFrame {
 
             while (rs.next()) {
                 Supplier supplier = new Supplier(
-                    rs.getInt("id_supplier"),
+                    rs.getString("kode_supplier"), // Menggunakan kode_supplier
                     rs.getString("nama_supplier"),
                     rs.getString("alamat_supplier"),
                     rs.getString("kontak_supplier")
@@ -331,15 +358,15 @@ public class SupplierForm extends javax.swing.JFrame {
         return supplierList;
     }
 
-    // Tambah supplier ke database
     private void tambahSupplier() {
         if (isInputValid()) {
             try {
-                String query = "INSERT INTO supplier (nama_supplier, alamat_supplier, kontak_supplier) VALUES (?, ?, ?)";
+                String query = "INSERT INTO supplier (kode_supplier, nama_supplier, alamat_supplier, kontak_supplier) VALUES (?, ?, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, txtNama.getText());
-                ps.setString(2, txtAlamat.getText());
-                ps.setString(3, txtTelepon.getText());
+                ps.setString(1, txtKode.getText()); // kode_supplier
+                ps.setString(2, txtNama.getText());
+                ps.setString(3, txtAlamat.getText());
+                ps.setString(4, txtTelepon.getText());
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Supplier berhasil ditambahkan");
                 loadTable();
@@ -350,15 +377,35 @@ public class SupplierForm extends javax.swing.JFrame {
         }
     }
 
-    // Hapus supplier dari database
+    private void ubahSupplier() {
+        int selectedRow = tblSupplier.getSelectedRow();
+        if (selectedRow != -1 && isInputValid()) {
+            String kodeSupplier = model.getValueAt(selectedRow, 0).toString(); // kode_supplier
+            try {
+                String query = "UPDATE supplier SET nama_supplier = ?, alamat_supplier = ?, kontak_supplier = ? WHERE kode_supplier = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, txtNama.getText());
+                ps.setString(2, txtAlamat.getText());
+                ps.setString(3, txtTelepon.getText());
+                ps.setString(4, kodeSupplier);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Supplier berhasil diperbarui");
+                loadTable();
+                clearForm();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal memperbarui supplier: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     private void hapusSupplier() {
         int selectedRow = tblSupplier.getSelectedRow();
         if (selectedRow != -1) {
-            int idSupplier = (int) model.getValueAt(selectedRow, 0);
+            String kodeSupplier = model.getValueAt(selectedRow, 0).toString(); // kode_supplier
             try {
-                String query = "DELETE FROM supplier WHERE id_supplier = ?";
+                String query = "DELETE FROM supplier WHERE kode_supplier = ?";
                 PreparedStatement ps = conn.prepareStatement(query);
-                ps.setInt(1, idSupplier);
+                ps.setString(1, kodeSupplier);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Supplier berhasil dihapus");
                 loadTable();
@@ -371,29 +418,6 @@ public class SupplierForm extends javax.swing.JFrame {
         }
     }
 
-    // Update supplier di database
-    private void ubahSupplier() {
-        int selectedRow = tblSupplier.getSelectedRow();
-        if (selectedRow != -1 && isInputValid()) {
-            int idSupplier = (int) model.getValueAt(selectedRow, 0);
-            try {
-                String query = "UPDATE supplier SET nama_supplier = ?, alamat_supplier = ?, kontak_supplier = ? WHERE id_supplier = ?";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, txtNama.getText());
-                ps.setString(2, txtAlamat.getText());
-                ps.setString(3, txtTelepon.getText());
-                ps.setInt(4, idSupplier);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(this, "Supplier berhasil diperbarui");
-                loadTable();
-                clearForm();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "Gagal memperbarui supplier: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-
-    // Mencari supplier berdasarkan nama
     private void cariSupplier() {
         String keyword = txtCari.getText();
         if (keyword.isEmpty()) {
@@ -410,7 +434,7 @@ public class SupplierForm extends javax.swing.JFrame {
 
             while (rs.next()) {
                 model.addRow(new Object[]{
-                    rs.getInt("id_supplier"),
+                    rs.getString("kode_supplier"), // kode_supplier
                     rs.getString("nama_supplier"),
                     rs.getString("alamat_supplier"),
                     rs.getString("kontak_supplier")
@@ -421,28 +445,28 @@ public class SupplierForm extends javax.swing.JFrame {
         }
     }
 
-    // Mengisi form dari baris yang dipilih
     private void populateFormFromRow(int rowIndex) {
+        txtKode.setText(model.getValueAt(rowIndex, 0).toString()); // kode_supplier
         txtNama.setText(model.getValueAt(rowIndex, 1).toString());
         txtAlamat.setText(model.getValueAt(rowIndex, 2).toString());
         txtTelepon.setText(model.getValueAt(rowIndex, 3).toString());
     }
 
-    // Membersihkan form input
     private void clearForm() {
+        txtKode.setText("");
         txtNama.setText("");
         txtAlamat.setText("");
         txtTelepon.setText("");
     }
 
-    // Validasi input
     private boolean isInputValid() {
-        if (txtNama.getText().isEmpty() || txtAlamat.getText().isEmpty() || txtTelepon.getText().isEmpty()) {
+        if (txtKode.getText().isEmpty() || txtNama.getText().isEmpty() || txtAlamat.getText().isEmpty() || txtTelepon.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
+
 
     
     private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
@@ -452,6 +476,10 @@ public class SupplierForm extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.dispose(); // Menutup form saat ini
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtKodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKodeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -498,6 +526,7 @@ public class SupplierForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -507,6 +536,7 @@ public class SupplierForm extends javax.swing.JFrame {
     private javax.swing.JTable tblSupplier;
     private javax.swing.JTextField txtAlamat;
     private javax.swing.JTextField txtCari;
+    private javax.swing.JTextField txtKode;
     private javax.swing.JTextField txtNama;
     private javax.swing.JTextField txtTelepon;
     // End of variables declaration//GEN-END:variables
