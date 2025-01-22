@@ -5,17 +5,29 @@
  */
 package aplikasigudang;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
- * @author ASUS
+ * @author syffmhr
  */
 public class TransaksiForm extends javax.swing.JFrame {
 
+    private Connection conn;
+    private DefaultTableModel model;
     /**
      * Creates new form TransaksiForm
      */
     public TransaksiForm() {
         initComponents();
+        conn = DatabaseConnection.getConnection(); // Menghubungkan ke database
+        initializeListeners(); // Inisialisasi listener
+        loadTable(); // Memuat data ke tabel
     }
 
     /**
@@ -33,17 +45,21 @@ public class TransaksiForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNama = new javax.swing.JTextField();
-        txtAlamat = new javax.swing.JTextField();
-        txtTelepon = new javax.swing.JTextField();
+        txtJumlah = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         btnTambah = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtKodeBarang = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtKodeSupplier = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblSupplier = new javax.swing.JTable();
+        tblTransaksi = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         txtCari = new javax.swing.JTextField();
         btnCari = new javax.swing.JButton();
@@ -57,65 +73,45 @@ public class TransaksiForm extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Nama :");
+        jLabel1.setText("Tanggal :");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel1, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel2.setText("Alamat :");
+        jLabel2.setText("Jumlah :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel2, gridBagConstraints);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("Telepon :");
+        jLabel3.setText("Tipe Transaksi :");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel3, gridBagConstraints);
 
-        txtNama.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtNama.addActionListener(new java.awt.event.ActionListener() {
+        txtJumlah.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtJumlah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaActionPerformed(evt);
+                txtJumlahActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 72;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.6;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
-        jPanel2.add(txtNama, gridBagConstraints);
-
-        txtAlamat.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 72;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
-        jPanel2.add(txtAlamat, gridBagConstraints);
-
-        txtTelepon.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 72;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
-        jPanel2.add(txtTelepon, gridBagConstraints);
+        jPanel2.add(txtJumlah, gridBagConstraints);
 
         jPanel5.setLayout(new java.awt.GridBagLayout());
 
@@ -157,26 +153,93 @@ public class TransaksiForm extends javax.swing.JFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.insets = new java.awt.Insets(23, 0, 23, 0);
         jPanel2.add(jPanel5, gridBagConstraints);
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Kode Barang :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(jLabel4, gridBagConstraints);
+
+        txtKodeBarang.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtKodeBarang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKodeBarangActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 72;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(txtKodeBarang, gridBagConstraints);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Kode Supplier :");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(jLabel5, gridBagConstraints);
+
+        txtKodeSupplier.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        txtKodeSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKodeSupplierActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 72;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.6;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(txtKodeSupplier, gridBagConstraints);
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+        jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
+        jPanel2.add(jDateChooser1, gridBagConstraints);
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masuk", "Keluar" }));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 16;
+        gridBagConstraints.ipady = 16;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(jComboBox1, gridBagConstraints);
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Transaksi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        tblSupplier.setModel(new javax.swing.table.DefaultTableModel(
+        tblTransaksi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "NO", "Nama ", "Alamat", "Telepon"
+                "NO", "Kode Barang", "Kode Supplier", "Tanggal", "Jumlah", "Tipe Transaksi"
             }
         ));
-        jScrollPane1.setViewportView(tblSupplier);
+        jScrollPane1.setViewportView(tblTransaksi);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -236,7 +299,7 @@ public class TransaksiForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton6)
@@ -256,7 +319,7 @@ public class TransaksiForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
+            .addGap(0, 584, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -267,13 +330,208 @@ public class TransaksiForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaActionPerformed
+    private void initializeListeners() {
+        btnTambah.addActionListener(e -> tambahTransaksi());
+        btnUbah.addActionListener(e -> ubahTransaksi());
+        btnBatal.addActionListener(e -> clearForm());
+        btnHapus.addActionListener(e -> hapusTransaksi());
+        btnCari.addActionListener(e -> cariTransaksi());
+        tblTransaksi.getSelectionModel().addListSelectionListener(e -> {
+            int row = tblTransaksi.getSelectedRow();
+            if (row != -1) populateFormFromRow(row);
+        });
+    }
 
+    // Load data transaksi dari database ke tabel
+    private void loadTable() {
+        model = (DefaultTableModel) tblTransaksi.getModel();
+        model.setRowCount(0); // Reset tabel
+
+        List<Transaksi> transaksiList = getTransaksiFromDatabase();
+        for (Transaksi transaksi : transaksiList) {
+            model.addRow(new Object[]{
+                transaksi.getIdTransaksi(),
+                transaksi.getKodeBarang(),
+                transaksi.getKodeSupplier(),
+                transaksi.getTanggal(),
+                transaksi.getJumlah(),
+                transaksi.getTipeTransaksi()
+            });
+        }
+    }
+
+    // Ambil data transaksi dari database
+    private List<Transaksi> getTransaksiFromDatabase() {
+        List<Transaksi> transaksiList = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM transaksi";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Transaksi transaksi = new Transaksi(
+                    rs.getInt("id_transaksi"),
+                    rs.getString("kode_barang"),
+                    rs.getString("kode_supplier"),
+                    rs.getString("tanggal"),
+                    rs.getInt("jumlah"),
+                    rs.getString("tipe_transaksi")
+                );
+                transaksiList.add(transaksi);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Gagal memuat data transaksi: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return transaksiList;
+    }
+
+    // Tambah transaksi ke database
+    private void tambahTransaksi() {
+        if (isInputValid()) {
+            try {
+                String query = "INSERT INTO transaksi (kode_barang, kode_supplier, tanggal, jumlah, tipe_transaksi) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, txtKodeBarang.getText());
+                ps.setString(2, txtKodeSupplier.getText());
+                ps.setString(3, new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate()));
+                ps.setInt(4, Integer.parseInt(txtJumlah.getText()));
+                ps.setString(5, jComboBox1.getSelectedItem().toString());
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Transaksi berhasil ditambahkan");
+                loadTable();
+                clearForm();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal menambahkan transaksi: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    // Hapus transaksi dari database
+    private void hapusTransaksi() {
+        int selectedRow = tblTransaksi.getSelectedRow();
+        if (selectedRow != -1) {
+            int idTransaksi = (int) model.getValueAt(selectedRow, 0);
+            try {
+                String query = "DELETE FROM transaksi WHERE id_transaksi = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setInt(1, idTransaksi);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Transaksi berhasil dihapus");
+                loadTable();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus transaksi: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih transaksi yang akan dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    // Update transaksi di database
+    private void ubahTransaksi() {
+        int selectedRow = tblTransaksi.getSelectedRow();
+        if (selectedRow != -1 && isInputValid()) {
+            int idTransaksi = (int) model.getValueAt(selectedRow, 0);
+            try {
+                String query = "UPDATE transaksi SET kode_barang = ?, kode_supplier = ?, tanggal = ?, jumlah = ?, tipe_transaksi = ? WHERE id_transaksi = ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, txtKodeBarang.getText());
+                ps.setString(2, txtKodeSupplier.getText());
+                ps.setString(3, new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate()));
+                ps.setInt(4, Integer.parseInt(txtJumlah.getText()));
+                ps.setString(5, jComboBox1.getSelectedItem().toString());
+                ps.setInt(6, idTransaksi);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Transaksi berhasil diperbarui");
+                loadTable();
+                clearForm();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal memperbarui transaksi: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void cariTransaksi() {
+        String keyword = txtCari.getText();
+        if (!keyword.isEmpty()) {
+            try {
+                String query = "SELECT * FROM transaksi WHERE kode_barang LIKE ? OR kode_supplier LIKE ?";
+                PreparedStatement ps = conn.prepareStatement(query);
+                ps.setString(1, "%" + keyword + "%");
+                ps.setString(2, "%" + keyword + "%");
+                ResultSet rs = ps.executeQuery();
+                model.setRowCount(0);
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                        rs.getInt("id_transaksi"),
+                        rs.getString("kode_barang"),
+                        rs.getString("kode_supplier"),
+                        rs.getString("tanggal"),
+                        rs.getInt("jumlah"),
+                        rs.getString("tipe_transaksi")
+                    });
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Gagal mencari transaksi: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            loadTable();
+        }
+    }
+
+    // Validasi input form
+    private boolean isInputValid() {
+        if (txtKodeBarang.getText().isEmpty() || txtKodeSupplier.getText().isEmpty() ||
+            jDateChooser1.getDate() == null || txtJumlah.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        try {
+            Integer.parseInt(txtJumlah.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Field kode barang, kode supplier, dan jumlah harus berupa angka!", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private void populateFormFromRow(int row) {
+        txtKodeBarang.setText(tblTransaksi.getValueAt(row, 1).toString());
+        txtKodeSupplier.setText(tblTransaksi.getValueAt(row, 2).toString());
+        txtJumlah.setText(tblTransaksi.getValueAt(row, 4).toString());
+        jComboBox1.setSelectedItem(tblTransaksi.getValueAt(row, 5).toString());
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            jDateChooser1.setDate(sdf.parse(tblTransaksi.getValueAt(row, 3).toString()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Membersihkan form input
+    private void clearForm() {
+        txtKodeBarang.setText("");
+        txtKodeSupplier.setText("");
+        txtJumlah.setText("");
+        jDateChooser1.setDate(null);
+        jComboBox1.setSelectedIndex(0);
+    }
+
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.dispose(); // Menutup form saat ini
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void txtKodeSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeSupplierActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKodeSupplierActionPerformed
+
+    private void txtKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeBarangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKodeBarangActionPerformed
+
+    private void txtJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJumlahActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtJumlahActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,19 +575,23 @@ public class TransaksiForm extends javax.swing.JFrame {
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
     private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblSupplier;
-    private javax.swing.JTextField txtAlamat;
+    private javax.swing.JTable tblTransaksi;
     private javax.swing.JTextField txtCari;
-    private javax.swing.JTextField txtNama;
-    private javax.swing.JTextField txtTelepon;
+    private javax.swing.JTextField txtJumlah;
+    private javax.swing.JTextField txtKodeBarang;
+    private javax.swing.JTextField txtKodeSupplier;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,17 +11,17 @@ package aplikasigudang;
  */
 public class Transaksi {
     private int idTransaksi;
-    private int idBarang;
-    private int idSupplier;
+    private String kodeBarang;   // Menggunakan kodeBarang
+    private String kodeSupplier; // Menggunakan kodeSupplier
     private String tanggal;
     private int jumlah;
     private String tipeTransaksi;
 
     // Constructor
-    public Transaksi(int idTransaksi, int idBarang, int idSupplier, String tanggal, int jumlah, String tipeTransaksi) {
+    public Transaksi(int idTransaksi, String kodeBarang, String kodeSupplier, String tanggal, int jumlah, String tipeTransaksi) {
         this.idTransaksi = idTransaksi;
-        this.idBarang = idBarang;
-        this.idSupplier = idSupplier;
+        this.kodeBarang = kodeBarang;
+        this.kodeSupplier = kodeSupplier;
         this.tanggal = tanggal;
         this.jumlah = jumlah;
         this.tipeTransaksi = tipeTransaksi;
@@ -36,20 +36,20 @@ public class Transaksi {
         this.idTransaksi = idTransaksi;
     }
 
-    public int getIdBarang() {
-        return idBarang;
+    public String getKodeBarang() {
+        return kodeBarang;
     }
 
-    public void setIdBarang(int idBarang) {
-        this.idBarang = idBarang;
+    public void setKodeBarang(String kodeBarang) {
+        this.kodeBarang = kodeBarang;
     }
 
-    public int getIdSupplier() {
-        return idSupplier;
+    public String getKodeSupplier() {
+        return kodeSupplier;
     }
 
-    public void setIdSupplier(int idSupplier) {
-        this.idSupplier = idSupplier;
+    public void setKodeSupplier(String kodeSupplier) {
+        this.kodeSupplier = kodeSupplier;
     }
 
     public String getTanggal() {
@@ -74,5 +74,17 @@ public class Transaksi {
 
     public void setTipeTransaksi(String tipeTransaksi) {
         this.tipeTransaksi = tipeTransaksi;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaksi{" +
+                "idTransaksi=" + idTransaksi +
+                ", kodeBarang='" + kodeBarang + '\'' +
+                ", kodeSupplier='" + kodeSupplier + '\'' +
+                ", tanggal='" + tanggal + '\'' +
+                ", jumlah=" + jumlah +
+                ", tipeTransaksi='" + tipeTransaksi + '\'' +
+                '}';
     }
 }

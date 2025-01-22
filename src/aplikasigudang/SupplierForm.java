@@ -206,6 +206,7 @@ public class SupplierForm extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Supplier", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
+        tblSupplier.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tblSupplier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -214,7 +215,7 @@ public class SupplierForm extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "NO", "Nama ", "Alamat", "Telepon"
+                "Kode Supplier", "Nama ", "Alamat", "Telepon"
             }
         ));
         jScrollPane1.setViewportView(tblSupplier);
