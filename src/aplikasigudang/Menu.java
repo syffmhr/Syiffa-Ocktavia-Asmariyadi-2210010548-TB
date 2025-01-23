@@ -5,6 +5,26 @@
  */
 package aplikasigudang;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -42,8 +62,8 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,13 +134,22 @@ public class Menu extends javax.swing.JFrame {
         jMenu3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jMenuItem5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMenuItem5.setText("Laporan Stok");
+        jMenuItem5.setText("Laporan Barang");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem5);
+
+        jMenuItem7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem7.setText("Laporan Supplier");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem7);
 
         jMenuItem6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jMenuItem6.setText("Laporan Transaksi");
@@ -132,10 +161,6 @@ public class Menu extends javax.swing.JFrame {
         jMenu3.add(jMenuItem6);
 
         jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("Exit");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -161,14 +186,197 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // Membuka JFrame LaporanForm
-        LaporanForm laporanForm = new LaporanForm();
-        laporanForm.setVisible(true);
+        try {
+            // Koneksi ke database
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_gudang", "root", "");
+
+            // Buat objek PdfPTable
+            PdfPTable table = new PdfPTable(5);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+
+            // Tambahkan kolom ke tabel
+            PdfPCell cell = new PdfPCell(new Phrase("Kode Barang", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Nama  Barang", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Kategori", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Stok", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Harga", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            // Tambahkan data barang ke tabel
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM barang");
+
+            while (rs.next()) {
+                table.addCell(rs.getString("kode_barang"));
+                table.addCell(rs.getString("nama_barang"));
+                table.addCell(rs.getString("kategori_barang"));
+                table.addCell(String.valueOf(rs.getInt("stok")));
+                table.addCell(rs.getString("harga"));
+            }
+
+            rs.close();
+            stmt.close();
+
+            // Buat objek PdfP
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, new FileOutputStream("laporan_barang.pdf"));
+            document.open();
+
+            // Tambahkan judul laporan
+            document.add(new Paragraph("Laporan Barang", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD)));
+
+            // Tambahkan tabel ke dokumen
+            document.add(table);
+
+            document.close();
+
+            // Membuka file PDF secara langsung
+            Desktop.getDesktop().open(new File("laporan_barang.pdf"));
+
+            JOptionPane.showMessageDialog(null, "Laporan barang telah dibuat!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Koneksi ke database
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_gudang", "root", "");
+
+            // Buat objek PdfPTable
+            PdfPTable table = new PdfPTable(6);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+
+            // Tambahkan kolom ke tabel
+            PdfPCell cell = new PdfPCell(new Phrase("No", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Kode Barang", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Kode Supplier", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Tanggal", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Jumlah", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Tipe Transaksi", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            // Tambahkan data transaksi ke tabel
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM transaksi");
+
+            while (rs.next()) {
+                table.addCell(String.valueOf(rs.getInt("id_transaksi")));
+                table.addCell(rs.getString("kode_barang"));
+                table.addCell(rs.getString("kode_supplier"));
+                table.addCell(rs.getString("tanggal"));
+                table.addCell(String.valueOf(rs.getInt("jumlah")));
+                table.addCell(rs.getString("tipe_transaksi"));
+            }
+
+            rs.close();
+            stmt.close();
+
+            // Buat objek PdfP
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, new FileOutputStream("laporan_transaksi.pdf"));
+            document.open();
+
+            // Tambahkan judul laporan
+            document.add(new Paragraph("Laporan Transaksi", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD)));
+
+            // Tambahkan tabel ke dokumen
+            document.add(table);
+
+            document.close();
+
+            // Membuka file PDF secara langsung
+            Desktop.getDesktop().open(new File("laporan_transaksi.pdf"));
+
+            JOptionPane.showMessageDialog(null, "Laporan transaksi telah dibuat!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        try {
+            // Koneksi ke database
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_gudang", "root", "");
+
+            // Buat objek PdfPTable
+            PdfPTable table = new PdfPTable(4);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+
+            // Tambahkan kolom ke tabel
+            PdfPCell cell = new PdfPCell(new Phrase("Kode Supplier", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Nama", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Alamat", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Telepon", new Font(Font.FontFamily.HELVETICA, 15, Font.BOLD)));
+            table.addCell(cell);
+
+            // Tambahkan data supplier ke tabel
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM supplier");
+
+            while (rs.next()) {
+                table.addCell(rs.getString("kode_supplier"));
+                table.addCell(rs.getString("nama_supplier"));
+                table.addCell(rs.getString("alamat_supplier"));
+                table.addCell(rs.getString("kontak_supplier"));
+            }
+
+            rs.close();
+            stmt.close();
+
+            // Buat objek PdfP
+            Document document = new Document(PageSize.A4);
+            PdfWriter.getInstance(document, new FileOutputStream("laporan_supplier.pdf"));
+            document.open();
+
+            // Tambahkan judul laporan
+            document.add(new Paragraph("Laporan Supplier", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD)));
+
+            // Tambahkan tabel ke dokumen
+            document.add(table);
+
+            document.close();
+
+            // Membuka file PDF secara langsung
+            Desktop.getDesktop().open(new File("laporan_supplier.pdf"));
+
+            JOptionPane.showMessageDialog(null, "Laporan supplier telah dibuat!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,13 +420,13 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
