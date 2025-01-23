@@ -28,6 +28,7 @@ public class TransaksiForm extends javax.swing.JFrame {
         conn = DatabaseConnection.getConnection(); // Menghubungkan ke database
         initializeListeners(); // Inisialisasi listener
         loadTable(); // Memuat data ke tabel
+        isiKodeBarangDanSupplier();
     }
 
     /**
@@ -52,11 +53,11 @@ public class TransaksiForm extends javax.swing.JFrame {
         btnHapus = new javax.swing.JButton();
         btnBatal = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtKodeBarang = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtKodeSupplier = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jComboBox1 = new javax.swing.JComboBox<>();
+        cboKodeBarang = new javax.swing.JComboBox<>();
+        cboKodeSupplier = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTransaksi = new javax.swing.JTable();
@@ -165,20 +166,6 @@ public class TransaksiForm extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel4, gridBagConstraints);
 
-        txtKodeBarang.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtKodeBarang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKodeBarangActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 72;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
-        jPanel2.add(txtKodeBarang, gridBagConstraints);
-
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Kode Supplier :");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -186,21 +173,6 @@ public class TransaksiForm extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
         jPanel2.add(jLabel5, gridBagConstraints);
-
-        txtKodeSupplier.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        txtKodeSupplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKodeSupplierActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 72;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(9, 9, 9, 9);
-        jPanel2.add(txtKodeSupplier, gridBagConstraints);
 
         jDateChooser1.setDateFormatString("yyyy-MM-dd");
         jDateChooser1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -223,6 +195,22 @@ public class TransaksiForm extends javax.swing.JFrame {
         gridBagConstraints.ipady = 16;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(jComboBox1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 16;
+        gridBagConstraints.ipady = 16;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(cboKodeBarang, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 16;
+        gridBagConstraints.ipady = 16;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        jPanel2.add(cboKodeSupplier, gridBagConstraints);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data Transaksi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel3.setLayout(new java.awt.GridBagLayout());
@@ -391,8 +379,8 @@ public class TransaksiForm extends javax.swing.JFrame {
             try {
                 String query = "INSERT INTO transaksi (kode_barang, kode_supplier, tanggal, jumlah, tipe_transaksi) VALUES (?, ?, ?, ?, ?)";
                 PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, txtKodeBarang.getText());
-                ps.setString(2, txtKodeSupplier.getText());
+                ps.setString(1, cboKodeBarang.getSelectedItem().toString());
+                ps.setString(2, cboKodeSupplier.getSelectedItem().toString());
                 ps.setString(3, new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate()));
                 ps.setInt(4, Integer.parseInt(txtJumlah.getText()));
                 ps.setString(5, jComboBox1.getSelectedItem().toString());
@@ -434,8 +422,8 @@ public class TransaksiForm extends javax.swing.JFrame {
             try {
                 String query = "UPDATE transaksi SET kode_barang = ?, kode_supplier = ?, tanggal = ?, jumlah = ?, tipe_transaksi = ? WHERE id_transaksi = ?";
                 PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, txtKodeBarang.getText());
-                ps.setString(2, txtKodeSupplier.getText());
+                ps.setString(1, cboKodeBarang.getSelectedItem().toString());
+                ps.setString(2, cboKodeSupplier.getSelectedItem().toString());
                 ps.setString(3, new SimpleDateFormat("yyyy-MM-dd").format(jDateChooser1.getDate()));
                 ps.setInt(4, Integer.parseInt(txtJumlah.getText()));
                 ps.setString(5, jComboBox1.getSelectedItem().toString());
@@ -480,8 +468,7 @@ public class TransaksiForm extends javax.swing.JFrame {
 
     // Validasi input form
     private boolean isInputValid() {
-        if (txtKodeBarang.getText().isEmpty() || txtKodeSupplier.getText().isEmpty() ||
-            jDateChooser1.getDate() == null || txtJumlah.getText().isEmpty()) {
+        if (jDateChooser1.getDate() == null || txtJumlah.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Semua field harus diisi!", "Peringatan", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -495,8 +482,8 @@ public class TransaksiForm extends javax.swing.JFrame {
     }
 
     private void populateFormFromRow(int row) {
-        txtKodeBarang.setText(tblTransaksi.getValueAt(row, 1).toString());
-        txtKodeSupplier.setText(tblTransaksi.getValueAt(row, 2).toString());
+        cboKodeBarang.setSelectedItem(tblTransaksi.getValueAt(row, 1).toString());
+        cboKodeSupplier.setSelectedItem(tblTransaksi.getValueAt(row, 2).toString());
         txtJumlah.setText(tblTransaksi.getValueAt(row, 4).toString());
         jComboBox1.setSelectedItem(tblTransaksi.getValueAt(row, 5).toString());
         try {
@@ -506,11 +493,40 @@ public class TransaksiForm extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    private void isiKodeBarangDanSupplier() {
+    try {
+        String query = "SELECT kode_barang FROM barang";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        
+        while (rs.next()) {
+            cboKodeBarang.addItem(rs.getString("kode_barang"));
+        }
+        
+        rs.close();
+        stmt.close();
+        
+        query = "SELECT kode_supplier FROM supplier";
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(query);
+        
+        while (rs.next()) {
+            cboKodeSupplier.addItem(rs.getString("kode_supplier"));
+        }
+        
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Gagal mengisi kode barang dan supplier: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
     // Membersihkan form input
     private void clearForm() {
-        txtKodeBarang.setText("");
-        txtKodeSupplier.setText("");
+        cboKodeBarang.setSelectedIndex(0);
+        cboKodeSupplier.setSelectedIndex(0);
         txtJumlah.setText("");
         jDateChooser1.setDate(null);
         jComboBox1.setSelectedIndex(0);
@@ -520,14 +536,6 @@ public class TransaksiForm extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         this.dispose(); // Menutup form saat ini
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void txtKodeSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeSupplierActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtKodeSupplierActionPerformed
-
-    private void txtKodeBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKodeBarangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtKodeBarangActionPerformed
 
     private void txtJumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtJumlahActionPerformed
         // TODO add your handling code here:
@@ -574,6 +582,8 @@ public class TransaksiForm extends javax.swing.JFrame {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
+    private javax.swing.JComboBox<String> cboKodeBarang;
+    private javax.swing.JComboBox<String> cboKodeSupplier;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -591,7 +601,5 @@ public class TransaksiForm extends javax.swing.JFrame {
     private javax.swing.JTable tblTransaksi;
     private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtJumlah;
-    private javax.swing.JTextField txtKodeBarang;
-    private javax.swing.JTextField txtKodeSupplier;
     // End of variables declaration//GEN-END:variables
 }
