@@ -332,6 +332,7 @@ public class BarangForm extends javax.swing.JFrame {
                 barang.getHarga()
             });
         }
+        
     }
 
     // Ambil data barang dari database
@@ -394,6 +395,7 @@ public class BarangForm extends javax.swing.JFrame {
                 ps.setDouble(4, Double.parseDouble(txtHarga.getText()));
                 ps.setString(5, kodeBarang);
                 ps.executeUpdate();
+                
                 JOptionPane.showMessageDialog(this, "Barang berhasil diperbarui");
                 loadTable();
                 clearForm();
